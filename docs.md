@@ -27,6 +27,28 @@ fetch("https://{subdomain}.ox-sys.com/security/auth_check", {
 
 <!-- -------------------------------------------------------- -->
 
+<!-- -------------------------------------------------------- -->
+
+<div className="App">
+  <div class="container">
+    <h3>Authorize</h3>
+    <hr />
+    <form>
+      <div className="mb-3">
+        <label for="inputUsername1" className="form-label">Username</label>
+        <input type="username" className="form-control" id="inputUsername1" />
+      </div>
+      <div className="mb-3">
+        <label for="inputPassword1" className="form-label">Password</label>
+        <input type="password" className="form-control" id="inputPassword1" />
+      </div>
+      <button type="submit" className="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+
+<!-- -------------------------------------------------------- -->
+
 
 Example result
 {

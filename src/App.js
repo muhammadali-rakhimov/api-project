@@ -1,9 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { useHistory } from 'react-router';
 import http from './services/http';
 import './App.css';
 
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+const HomePage = lazy(() => import("./pages/Home"));
+const LoginPage = lazy(() => import("./pages/Auth/Login"));
+const RegisterPage = lazy(() => import("./pages/Auth/Register"));
+
 function App() {
+  const [token, setToken] = useState(window.localStorage.getItem("token"));
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
@@ -11,7 +19,7 @@ function App() {
   useEffect(() => {
     if(localStorage.getItem('token')) {
       history.push('/add')
-    } 
+    }
   }, [])
 
   const result = fetch(`${http}/security/auth_check`, {
@@ -27,21 +35,21 @@ function App() {
 
   return (
     <div className="App">
-      <div class="container">
-        <h3>Authorize</h3>
-        <hr />
-        <form>
-          <div className="mb-3">
-            <label for="inputUsername1" className="form-label">Username</label>
-            <input type="username" className="form-control" id="inputUsername1" />
-          </div>
-          <div className="mb-3">
-            <label for="inputPassword1" className="form-label">Password</label>
-            <input type="password" className="form-control" id="inputPassword1" />
-          </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-      </div>
+      <Suspense fallback={<h1>Error From React!</h1>}>
+        <Router>
+          <Switch>
+            {token ? (
+              <Route exact path="/" component={HomePage} />
+            ) : (
+              <Route
+                exact
+                path="/"
+                render={() => <LoginPage setToken={setToken} />}
+              />
+            )}
+          </Switch>
+        </Router>
+      </Suspense>
     </div>
   );
 }
