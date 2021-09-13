@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { HomePage } from './pages/Home';
-import { LoginPage } from './pages/Auth/Login';
-import { RegisterPage } from './pages/Auth/Register';
+import Login from './pages/Auth/Login';
+import Home from './pages/Home';
 
 function App() {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
@@ -12,13 +11,11 @@ function App() {
       <Router>
         <Switch>
           {token ? (
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={Home} />
           ) : (
-            <Route
-              exact
-              path="/"
-              render={() => <LoginPage setToken={setToken} />}
-            />
+            <Route exact path="/">
+              <Login setToken={setToken} />
+            </Route>
           )}
         </Switch>
       </Router>
