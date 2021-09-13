@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import http from './services/http';
 import './App.css';
 
 function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+
   useEffect(() => {
     if(localStorage.getItem('token')) {
       history.push('/add')
     } 
   }, [])
 
-  const result = fetch("https://ox-sys.com/security/auth_check", {
+  const result = fetch(`${http}/security/auth_check`, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     },
@@ -31,7 +33,7 @@ function App() {
         <form>
           <div className="mb-3">
             <label for="exampleInputEmail1" className="form-label">Email address</label>
-            <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+            <input type="email" className="form-control" id="exampleInputEmail1" />
             <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
           </div>
           <div className="mb-3">
