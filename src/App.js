@@ -6,6 +6,10 @@ import Home from './pages/Home';
 function App() {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   
+// <Route exact path="/">
+//   {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />}
+// </Route>
+
   return (
     <div>
       <Router>

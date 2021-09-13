@@ -65,6 +65,11 @@ fetch("https://{subdomain}.ox-sys.com/security/auth_check", {
     </div>
   </div>
 
+
+  <Route exact path="/">
+    {loggedIn ? <Redirect to="/dashboard" /> : <PublicHomePage />}
+  </Route>
+
 <!-- -------------------------------------------------------- -->
 
 
