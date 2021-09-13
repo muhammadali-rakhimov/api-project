@@ -32,9 +32,8 @@ function App() {
         <hr />
         <form>
           <div className="mb-3">
-            <label for="exampleInputEmail1" className="form-label">Email address</label>
-            <input type="email" className="form-control" id="exampleInputEmail1" />
-            <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+            <label for="inputUsername1" className="form-label">Username</label>
+            <input type="username" className="form-control" id="inputUsername1" />
           </div>
           <div className="mb-3">
             <label for="exampleInputPassword1" className="form-label">Password</label>
