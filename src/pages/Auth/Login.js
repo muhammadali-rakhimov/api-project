@@ -6,16 +6,23 @@ const Login = ({ setToken }) => {
 
   const loginInput = useRef(null);
   const passwordInput = useRef(null);
-
+  // eve.holt@reqres.in cityslicka
   const onFormSubmit = (e) => {
     e.preventDefault();
+    // /login?_username=fortest&_password=fortest1
     http
-      .get("/security/auth_check", {
-        _username: loginInput.current.value,
-        _password: passwordInput.current.value,
-        _subdomain: 'face'
+      .post('login', {
+        username: loginInput.current.value,
+        password: passwordInput.current.value,
+        // subdomain: 'face'
+
+        // username: loginInput.current.value,
+        // password: passwordInput.current.value,
+        // subdomain: 'face'
       })
       .then((res) => {
+        console.log(res)
+        setToken(res.data.token)
         window.localStorage.setItem("token", res.data.token);
       })
       .catch(setHasError(true));
