@@ -12,8 +12,8 @@ const Login = ({ setToken }) => {
     // /login?_username=fortest&_password=fortest1
     http
       .post('login', {
-        username: loginInput.current.value,
-        password: passwordInput.current.value,
+        _username: loginInput.current.value,
+        _password: passwordInput.current.value,
         // subdomain: 'face'
 
         // username: loginInput.current.value,
