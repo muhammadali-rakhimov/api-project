@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 
 const Login = ({ setToken }) => {
   const [hasError, setHasError] = useState(false);
+  // eslint-disable-next-line
   const [loader, setLoader] = useState(false);
 
   const loginInput = useRef(null);
