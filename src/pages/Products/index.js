@@ -64,11 +64,12 @@ const Products = () => {
                 <th
                   {...column.getHeaderProps()}
                   style={{
-                    padding: '20px',
+                    padding: '10px',
                     borderBottom: 'solid 1.3px darkblue',
                     background: 'aliceblue',
                     color: 'black',
                     fontWeight: 'bold',
+                    textAlign: 'center'
                   }}
                 >
                   {column.render('Header')}

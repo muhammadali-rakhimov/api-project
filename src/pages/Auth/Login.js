@@ -1,31 +1,38 @@
+import axios from "axios";
 import { useRef, useState } from "react";
-import http from "../../services/http";
 
 const Login = ({ setToken }) => {
   const [hasError, setHasError] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const loginInput = useRef(null);
   const passwordInput = useRef(null);
-  // eve.holt@reqres.in cityslicka
+  const subdomainInput = useRef(null);
+
   const onFormSubmit = (e) => {
     e.preventDefault();
-    // /login?_username=fortest&_password=fortest1
-    http
-      .post('login', {
-        _username: loginInput.current.value,
-        _password: passwordInput.current.value,
-        // subdomain: 'face'
+    
+    const params = new URLSearchParams();
+    params.append('_username', loginInput.current.value);
+    params.append('_password', passwordInput.current.value);
+    params.append('_subdomain', subdomainInput.current.value);
+    
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }
 
-        // username: loginInput.current.value,
-        // password: passwordInput.current.value,
-        // subdomain: 'face'
-      })
-      .then((res) => {
-        console.log(res)
-        setToken(res.data.token)
-        window.localStorage.setItem("token", res.data.token);
-      })
-      .catch(setHasError(true));
+    axios.post(`https://${subdomainInput.current.value}.ox-sys.com/security/auth_check`, params, config)
+    .then((res) => {
+      setLoader(true)
+      setToken(res.data.token)
+      window.localStorage.setItem("token", res.data.token);
+      setLoader(false)
+    })
+    .catch(() => {
+      setHasError(true)
+    });
   };
 
   return (
@@ -40,13 +47,24 @@ const Login = ({ setToken }) => {
             <div className="card-body p-5">
               {hasError ? (
                 <div className="alert alert-danger" role="alert">
-                  Login or password is wrong!
+                  Subdomain, Login or password is wrong!
                 </div>
               ) : (
                 <></>
               )}
               <form onSubmit={onFormSubmit}>
-                <div className="mb-3">
+                <div className="mb-1">
+                  <label htmlFor="inputSubdomain1" className="form-label">
+                    Subdomain
+                  </label>
+                  <input
+                    ref={subdomainInput}
+                    type="text"
+                    className="form-control"
+                    id="inputSubdomain1"
+                  />
+                </div>
+                <div className="mb-1">
                   <label htmlFor="inputUsername1" className="form-label">
                     Username
                   </label>
